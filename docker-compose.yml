@@ -1,0 +1,30 @@
+networks:
+  api:
+    external: true
+    name: apagri_monitora
+
+services:
+    clima:
+        image: api-dash-clima:latest
+        container_name: clima
+        restart: unless-stopped
+        ports:
+            - "5050:5050"
+        working_dir: /code
+        environment:
+            - FLASK_APP=myapp.py
+            - FLASK_RUN_HOST=0.0.0.0
+            - FLASK_RUN_PORT=5050
+            - FLASK_DEBUG=True
+            - LC_ALL=C.UTF-8
+            - LANG=C.UTF-8
+            - PYTHONUNBUFFERED=1
+        volumes:
+            - .:/code
+            - ./out:/tmp/
+        command: [ 'flask', 'run' ]
+        extra_hosts:
+            -   "host.docker.internal:host-gateway"
+        networks:
+            - api
+
