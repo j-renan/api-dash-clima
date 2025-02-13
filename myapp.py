@@ -14,6 +14,11 @@ cors = CORS(app, resources={
 app.app_context().push()
 
 
+@app.route('/', methods=["GET"])
+def home():
+    return {"message": "HOME CLIMA"}, 200
+
+
 @app.route('/clima', methods=["GET"])
 def index():
     return {"message": "API DASH CLIMA"}, 200
@@ -30,5 +35,6 @@ def get_clima(cidade):
 
 
 if __name__ == '__main__':
-    app.run(host=config.get('APP_FLASK_HOST'), port=config.get(
-        'APP_FLASK_PORT'), debug=config.get('APP_FLASK_DEBUG'))
+    app.run(host="0.0.0.0", port=8080, debug=True)
+    # app.run(host=config.get('APP_FLASK_HOST'), port=config.get(
+    #     'APP_FLASK_PORT'), debug=config.get('APP_FLASK_DEBUG'))
