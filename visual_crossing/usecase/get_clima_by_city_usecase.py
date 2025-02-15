@@ -16,6 +16,7 @@ class GetClimaByCityUseCase:
 
     def execute(self, city: str):
         url = self.__url_base + city + ',UK/' + self.__today + '/' + self.__end_date.strftime('%Y-%m-%d') + '?key=' + self.__api_key
+        print('url---------------- ', url, flush=True)
         response = requests.request("GET", url)
         if response.status_code == requests.codes.ok:
             location = json.loads(response.text).get('resolvedAddress')
