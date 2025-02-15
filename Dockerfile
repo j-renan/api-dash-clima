@@ -32,7 +32,7 @@ ENV APP_FLASK_HOST=0.0.0.0
 
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
-#ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Exposição da porta
 EXPOSE 8080
@@ -41,5 +41,5 @@ EXPOSE 8080
 USER clima
 
 # Comando de inicialização
-#CMD ["gunicorn", "myapp:app", "--bind", "0.0.0.0:8080"]
-CMD ["sh", "-c", "set -o allexport && source /etc/secrets/.env && exec gunicorn myapp:app --bind 0.0.0.0:8080"]
+CMD ["gunicorn", "myapp:app", "--bind", "0.0.0.0:8080"]
+
