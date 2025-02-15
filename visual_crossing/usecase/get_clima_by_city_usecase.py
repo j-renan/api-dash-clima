@@ -46,7 +46,7 @@ class GetClimaByCityUseCase:
             print('dados_clima---------------- ', json.dumps(dados_clima, indent=4), flush=True)
             return dados_clima
         else:
-            return {"message": "Erro ao buscar dados"}
+            return {"message": "Erro ao buscar dados", "url": url}
 
     def __fahrenheit_to_celsius(self, fahrenheit):
         celsius = (fahrenheit - 32) * 5 / 9
