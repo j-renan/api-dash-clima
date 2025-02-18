@@ -1,22 +1,21 @@
 import json
+import os
 from datetime import datetime, timedelta
 
 import requests
-
-from environment import *
 
 
 class GetClimaByCityUseCase:
 
     def __init__(self):
-        self.__url_base = config.get('BASE_URL_VISUAL_CROSSING')
-        self.__api_key = config.get('VISUAL_CROSSING_API_KEY')
+        self.__url_base = os.environ.get('BASE_URL_VISUAL_CROSSING')
+        self.__api_key = os.environ.get('VISUAL_CROSSING_API_KEY')
         self.__today = datetime.now().strftime('%Y-%m-%d')
         self.__end_date = datetime.now() + timedelta(days=6)
 
     def execute(self, city: str):
-        url = self.__url_base + city + ',UK/' + self.__today + '/' + self.__end_date.strftime('%Y-%m-%d') + '?key=' + self.__api_key
-        print('url---------------- ', url, flush=True)
+        url = self.__url_base + city + ',UK/' + self.__today + '/' + self.__end_date.strftime(
+            '%Y-%m-%d') + '?key=' + self.__api_key
         response = requests.request("GET", url)
         if response.status_code == requests.codes.ok:
             location = json.loads(response.text).get('resolvedAddress')

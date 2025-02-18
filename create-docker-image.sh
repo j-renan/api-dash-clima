@@ -1,1 +1,1 @@
-docker build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --no-cache -t api-dash-clima:latest .
+docker build -f Dockerfile-local --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --no-cache -t api-dash-clima:latest .
