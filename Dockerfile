@@ -30,9 +30,9 @@ ENV APP_FLASK_DEBUG=True
 ENV APP_FLASK_PORT=8080
 ENV APP_FLASK_HOST=0.0.0.0
 
-COPY entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
+#COPY entrypoint.sh /app/entrypoint.sh
+#RUN chmod +x /app/entrypoint.sh
+#ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Exposição da porta
 EXPOSE 8080

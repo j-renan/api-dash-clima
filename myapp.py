@@ -1,9 +1,15 @@
+import os
+
 from flask import Flask, jsonify
 from flask_cors import CORS
 from environment import *
 from visual_crossing.controller.visual_crossing_controller import VisualCrossingController
 
 app = Flask(__name__)
+app.config['FLASK_RUN_PORT'] = os.environ.get('FLASK_RUN_PORT')
+app.config['FLASK_RUN_HOST'] = os.environ.get('FLASK_RUN_HOST')
+app.config['FLASK_RUN_DEBUG'] = os.environ.get('FLASK_RUN_DEBUG')
+
 CORS(app)
 cors = CORS(app, resources={
     r'/*': {
@@ -28,7 +34,6 @@ def index():
 def get_clima(cidade):
     result = VisualCrossingController()
     try:
-        print('Result-----------', result.get_clima_by_city(cidade).get('url'), flush=True)
         return jsonify(result.get_clima_by_city(cidade)), 200
     except Exception as ex:
         print('Erro ao buscar dados-----------', ex, result.get_clima_by_city(cidade).get('url'), flush=True)
@@ -36,6 +41,6 @@ def get_clima(cidade):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080, debug=True)
-    # app.run(host=config.get('APP_FLASK_HOST'), port=config.get(
-    #     'APP_FLASK_PORT'), debug=config.get('APP_FLASK_DEBUG'))
+    app.run(host=app.config['FLASK_RUN_HOST'], port=app.config['FLASK_RUN_PORT'],
+            debug=app.config['FLASK_RUN_DEBUG'])
+
